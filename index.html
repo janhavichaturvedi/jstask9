@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #9d1f55;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #ad235e;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        flex-basis: 150px;
+        margin-right: 10px;
+        text-align: right;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        flex-grow: 1;
+        padding: 5px;
+      }
+
+      .form-group input[type="radio"],
+      .form-group input[type="checkbox"] {
+        flex-basis: auto;
+      }
+
+      .form-group button {
+        margin-left: 160px;
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+      #REGISTER {
+        width: 60%;
+        height: 50px;
+        font-size: large;
+        margin-left: 20%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Registration Form</h2>
+      <form onsubmit="return validateForm()">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" required />
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <input type="radio" id="male" name="gender" value="male" required />
+          <label for="male">Male</label>
+          <input
+            type="radio"
+            id="female"
+            name="gender"
+            value="female"
+            required
+          />
+          <label for="female">Female</label>
+        </div>
+
+        <div class="form-group">
+          <label for="languages">Languages:</label>
+          <input
+            type="checkbox"
+            id="english"
+            name="languages"
+            value="english"
+          />
+          <label for="english">English</label>
+          <input
+            type="checkbox"
+            id="spanish"
+            name="languages"
+            value="spanish"
+          />
+          <label for="spanish">Spanish</label>
+          <input type="checkbox" id="french" name="languages" value="french" />
+          <label for="french">French</label>
+        </div>
+
+        <div class="form-group">
+          <label for="zipcode">Zip Code:</label>
+          <input type="text" id="zipcode" name="zipcode" required />
+        </div>
+
+        <div class="form-group">
+          <label for="about">About:</label>
+          <textarea id="about" name="about"></textarea>
+        </div>
+
+        <button type="submit" id="REGISTER">Register</button>
+      </form>
+    </div>
+
+    <script>
+      function validateForm() {
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var phone = document.getElementById("phone").value;
+        var zipcode = document.getElementById("zipcode").value;
+
+        var nameRegex = /^[a-zA-Z\s]+$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var phoneRegex = /^\d{10}$/;
+        var zipcodeRegex = /^\d{5}$/;
+
+        var isValid = true;
+
+        if (!nameRegex.test(name)) {
+          displayErrorMessage("name", "Invalid name");
+          isValid = false;
+        } else {
+          removeErrorMessage("name");
+        }
+
+        if (!emailRegex.test(email)) {
+          displayErrorMessage("email", "Invalid email");
+          isValid = false;
+        } else {
+          removeErrorMessage("email");
+        }
+
+        if (password.length < 6) {
+          displayErrorMessage(
+            "password",
+            "Password must be at least 6 characters long"
+          );
+          isValid = false;
+        } else {
+          removeErrorMessage("password");
+        }
+
+        if (!phoneRegex.test(phone)) {
+          displayErrorMessage("phone", "Invalid phone number");
+          isValid = false;
+        } else {
+          removeErrorMessage("phone");
+        }
+
+        if (!zipcodeRegex.test(zipcode)) {
+          displayErrorMessage("zipcode", "Invalid zip code");
+          isValid = false;
+        } else {
+          removeErrorMessage("zipcode");
+        }
+
+        return isValid;
+      }
+
+      function displayErrorMessage(fieldId, message) {
+        var errorElement = document.getElementById(fieldId + "Error");
+        errorElement.innerHTML = message;
+      }
+
+      function removeErrorMessage(fieldId) {
+        var errorElement = document.getElementById(fieldId + "Error");
+        errorElement.innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
